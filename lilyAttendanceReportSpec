@@ -1,0 +1,23 @@
+mark students green
+add students in bulk (by period) (firstname lastname)
+can organize by first name or last name
+
+interface has today's date
+show all classes (period)
+if click on class, show all students names grayed out in alphabetical order, by first name (default)
+first click on student turns student green, second click turns student name grayed
+of the green students, allow random selection
+selected student has 3 markers: responded, passed, did not respond
+selected student has 2 actions: put back in list, or take off list
+
+end class report generates list of students and timestamp of when they were called on, and marker
+
+also want timestamp of attendance
+
+class start button to start marking kids late
+
+Tech Stack
+Server: Express
+Frontend: React Typescript
+host: netlify
+
