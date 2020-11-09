@@ -2,9 +2,8 @@ import React from 'react';
 import styles from '../styles/StudentName.module.css';
 
 interface StudentNameProps {
-    firstName: string,
-    lastName: string,
-    updatePresentList?: any
+    studentData: any,
+    onClick?: any
 }
 
 interface StudentNameState {
@@ -25,6 +24,9 @@ class StudentName extends React.Component<StudentNameProps, StudentNameState> {
 
     handleClick(event: any) {
         // TODO: update student data with current time stamp
+        if (this.props.onClick) {
+            this.props.onClick(this.props.studentData.studentId);
+        }
         this.setState({
             present: !this.state.present
         });
@@ -33,8 +35,9 @@ class StudentName extends React.Component<StudentNameProps, StudentNameState> {
     render() {
         
         return (
-            <li className={this.state.present ? styles.present : ''} onClick={this.handleClick}>
-                {this.props.firstName} {this.props.lastName}
+            <li className={this.state.present ? styles.present : ''} onClick={this.handleClick}
+                title={this.props.studentData.present}>
+                {this.props.studentData.firstName} {this.props.studentData.lastName}
             </li>
         );
     }

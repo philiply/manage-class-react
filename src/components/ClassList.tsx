@@ -1,40 +1,34 @@
 import React from 'react';
 import StudentName from './StudentName';
+import '../styles/ClassList.module.css';
 
 type ClassListProps = {
-    studentList: Array<any>
+    studentList: Array<any>,
+    onStudentClick: any
 }
 
-type ClassListState = {
-    presentList: Array<any>
-}
-
-class ClassList extends React.Component<ClassListProps, ClassListState> {
-    constructor(props: ClassListProps) {
-        super(props);
-
-        this.state = {
-            presentList: []
-        };
-
-        this.updatePresentList = this.updatePresentList.bind(this);
-    }
-
-    updatePresentList(student: string) {
-        
-    }
+class ClassList extends React.Component<ClassListProps> {
 
     render() {
         return (
-            <ul>
+            <div>
+                <h2>Class List:</h2>
                 {
-                    this.props.studentList.map((student, idx) => {
-                        // return <li key={`student${idx}`}>{student.firstName} {student.lastName}</li>
-                        return <StudentName firstName={student.firstName} lastName={student.lastName} 
-                            updatePresentList={this.updatePresentList} />
-                    })
+                    this.props.studentList.length > 0 ?
+                <ol>
+                    
+                        
+                        {this.props.studentList.map((student, idx) => {
+                            return <StudentName key={`student-${student.studentId}`} 
+                                studentData={student}
+                                onClick={this.props.onStudentClick} />
+                        }) 
+                        }
+                        </ol> : <div>No students in this class</div>
+                
                 }
-            </ul>
+            </div>
+            
         );
     }
 }

@@ -12,8 +12,12 @@ class StudentModel {
 
     }
 
-    store(period: string, classList: Student[]) {
+    public store(period: string, classList: Student[]) {
+        // TODO: implement
+    }
 
+    public findStudent(firstName: string, lastName: string) {
+        // TODO: need to implement
     }
 }
 

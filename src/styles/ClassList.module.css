@@ -1,0 +1,15 @@
+ol {
+    /* width: 200px; */
+    display: inline-block;
+    outline: 1px solid black;
+    margin: 5px;
+    /* padding: 5px; */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 5px;
+}
+
+ol > li {
+    cursor: pointer;
+    user-select: none;
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/StudentInput.css';
 
 interface StudentInputProps {
     onSubmit: any
@@ -37,7 +38,7 @@ class StudentInput extends React.Component<StudentInputProps, StudentInputState>
 
     render() {
         return (
-            <div>
+            <div className="student-input">
                 <textarea onChange={this.handleChange} />
                 <button onClick={this.handleSubmit}>Add students</button>
             </div>
