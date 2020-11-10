@@ -160,18 +160,24 @@ class App extends React.Component<{}, AppState> {
 
     return (
       <div className="App">
-        <h4>Time is {time} {dayOfTheWeek}</h4>
-        <div>
-          <ClassSelector onSwitchClass={this.handleSwitchClass} />
-          <button onClick={this.toggleStudentInput}>{toggleStudentInputBtnLabel}</button>
-        </div>
+        <header>
+          <div>
+            <ClassSelector onSwitchClass={this.handleSwitchClass} />
+            <button onClick={this.toggleStudentInput}>{toggleStudentInputBtnLabel}</button>
+          </div>
+          <h4>Time is {time} {dayOfTheWeek}</h4>
+        </header>
         
         {studentInput}
 
-        <ClassList studentList={this.state.studentList} onStudentClick={this.updatePresentStatus} />
+        <section>
+          <ClassList studentList={this.state.studentList} onStudentClick={this.updatePresentStatus} />
+          {/* <div>Pick Name</div> */}
+        </section>
+        
 
         <div>
-          <button onClick={this.exportToCSV}>Save</button>
+          <button onClick={this.exportToCSV}>Export To CSV</button>
         </div>
 
       </div>
