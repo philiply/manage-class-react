@@ -104,7 +104,11 @@ class App extends React.Component<{}, AppState> {
     let students = this.state.studentList;
     let updated = students.map((student) => {
       if (student.studentId === studentId) {
-        student.present = new Date();
+        if (student.present) {
+          student.present = null;
+        } else {
+          student.present = new Date();
+        }
       }
       return student;
     });
@@ -135,6 +139,12 @@ class App extends React.Component<{}, AppState> {
     link.click();
   }
 
+  getWeekDay(dayOfTheWeek: number) {
+    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    return weekdays[dayOfTheWeek];
+  }
+
   render() {
     const showStudentInput = this.state.showStudentInput;
     let studentInput;
@@ -145,9 +155,12 @@ class App extends React.Component<{}, AppState> {
     }
 
     const today = new Date();
+    const time = today.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+    const dayOfTheWeek = this.getWeekDay(today.getDay());
+
     return (
       <div className="App">
-        <h4>Today is {today.toString()}</h4>
+        <h4>Time is {time} {dayOfTheWeek}</h4>
         <div>
           <ClassSelector onSwitchClass={this.handleSwitchClass} />
           <button onClick={this.toggleStudentInput}>{toggleStudentInputBtnLabel}</button>

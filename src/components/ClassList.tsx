@@ -10,9 +10,18 @@ type ClassListProps = {
 class ClassList extends React.Component<ClassListProps> {
 
     render() {
+        let studentsPresent = 0;
+        this.props.studentList.forEach((student) => {
+            if (student.present) {
+                studentsPresent++;
+            }
+        });
         return (
             <div>
                 <h2>Class List:</h2>
+                <div>
+                    <span>Present: {studentsPresent}</span>
+                </div>
                 {
                     this.props.studentList.length > 0 ?
                 <ol>

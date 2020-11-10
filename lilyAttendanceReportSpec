@@ -21,3 +21,11 @@ Server: Express
 Frontend: React Typescript
 host: netlify
 
+Show count of present/not present at top
+A state for “notice not present”
+Highest priority Report generator over time per class
+Tracking response log, not response log, and space note
+Add random name generator with buttons to mark “response”, “no-response”, and “note”
+
+Sorting by first/last name
+Randomly pick a name from class
