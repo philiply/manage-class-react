@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 // import ClassSelector from './components/ClassSelector';
-import {ClassSelector, ClassList, StudentInput} from './components';
+import {ClassSelector, ClassList, StudentInput, StudentSelector} from './components';
 // TODO: change types to interfaces
 // TODO: import StudentModel file
 // import {StudentModel} from './StudentModel';
@@ -173,6 +173,7 @@ class App extends React.Component<{}, AppState> {
         <section>
           <ClassList studentList={this.state.studentList} onStudentClick={this.updatePresentStatus} />
           {/* <div>Pick Name</div> */}
+          <StudentSelector studentData={this.state.studentList} />
         </section>
         
 
