@@ -42,7 +42,7 @@ class StudentSelector extends React.Component<StudentSelectorProps, StudentSelec
         const chosen = studentsPresent[Math.floor(Math.random() * studentsPresent.length)];
 
         this.setState({
-            selectedName: `${chosen.firstName} ${chosen.lastName}`,
+            selectedName: `${chosen.firstName} ${chosen.lastName ? chosen.lastName : ''}`,
             selectedStudentId: chosen.studentId
         });
     }

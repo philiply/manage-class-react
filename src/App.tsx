@@ -178,7 +178,7 @@ class App extends React.Component<{}, AppState> {
         
 
         <div>
-          <button onClick={this.exportToCSV}>Export To CSV</button>
+          <button onClick={this.exportToCSV}>Export Report</button>
         </div>
 
       </div>
