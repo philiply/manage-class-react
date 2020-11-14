@@ -8,7 +8,8 @@ type ClassListProps = {
 }
 
 type ClassListState = {
-    sortOrder: number // 0 original order, 1 firstName, 2 lastName
+    sortOrder: number, // 0 original order, 1 firstName, 2 lastName
+    sortReverse: boolean
 }
 
 class ClassList extends React.Component<ClassListProps, ClassListState> {
@@ -16,7 +17,8 @@ class ClassList extends React.Component<ClassListProps, ClassListState> {
         super(props);
 
         this.state = {
-            sortOrder: 0
+            sortOrder: 0,
+            sortReverse: true
         }
 
         this.changeSortOrder = this.changeSortOrder.bind(this);
@@ -24,7 +26,8 @@ class ClassList extends React.Component<ClassListProps, ClassListState> {
 
     changeSortOrder(order: number) {
         this.setState({
-            sortOrder: order
+            sortOrder: order,
+            sortReverse: !this.state.sortReverse
         });
     }
 
@@ -38,14 +41,18 @@ class ClassList extends React.Component<ClassListProps, ClassListState> {
         let sortedStudentList = [...this.props.studentList];
         if (this.state.sortOrder > 0) {
             sortedStudentList.sort((a, b) => {
+                let result = 0;
                 switch (this.state.sortOrder) {
                     case 1: // Sort by firstName
-                        return a.firstName[0] < b.firstName[0] ? -1 : 1;
+                        result = a.firstName[0] < b.firstName[0] ? -1 : 1;
+                        break;
                     case 2: // Sort by lastName
-                        return a.lastName[0] < b.lastName[0] ? -1 : 1;
+                        result = a.lastName[0] < b.lastName[0] ? -1 : 1;
+                        break;
                     default:
                 }
-                return 0;
+
+                return this.state.sortReverse ? -result : result;
             });
         }
         return (
