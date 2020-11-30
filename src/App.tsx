@@ -6,6 +6,9 @@ import {ClassSelector, ClassList, StudentInput, StudentSelector} from './compone
 // TODO: import StudentModel file
 // import {StudentModel} from './StudentModel';
 
+// import {set as idbSet, get as idbGet} from 'idb-keyval';
+import { openDB } from 'idb';
+
 type AppState = {
   classPeriod: string,
   studentList: Array<any>,
@@ -20,6 +23,7 @@ type AppState = {
 // }
 
 class App extends React.Component<{}, AppState> {
+  db: any;
   constructor(props: any) {
     super(props);
     this.state = {
@@ -37,6 +41,21 @@ class App extends React.Component<{}, AppState> {
     this.toggleStudentInput = this.toggleStudentInput.bind(this);
     this.updatePresentStatus = this.updatePresentStatus.bind(this);
     this.exportToCSV = this.exportToCSV.bind(this);
+
+    this.setupLog();
+  }
+
+  async setupLog() {
+    const db = await openDB('manage-class-logs', 2, {
+      upgrade(db) {
+        db.createObjectStore('logs', {
+          keyPath: 'id',
+          autoIncrement: true
+        });
+      }
+    });
+
+    this.db = db;
   }
 
   loadClassList(period: string) {
@@ -100,6 +119,33 @@ class App extends React.Component<{}, AppState> {
     });
   }
 
+  logEvent(studentId: number, action: string) {
+    // idbSet()
+    if (this.db) {
+      this.db.add('logs', {
+        classroom: this.state.classPeriod,
+        action: action,
+        date: new Date(),
+        studentName: this.getStudentName(studentId)
+      })
+    }
+  }
+
+  getStudentName(studentId: number) {
+    for (let i = 0; i < this.state.studentList.length; i++) {
+      if (this.state.studentList[i].studentId === studentId) {
+        const student = this.state.studentList[i];
+        return `${student.firstName} ${student.lastName}`;
+      }
+    }
+
+    return '';
+  }
+
+  generateReport() {
+
+  }
+
   updatePresentStatus(studentId: number) {
     let students = this.state.studentList;
     let updated = students.map((student) => {
@@ -108,6 +154,7 @@ class App extends React.Component<{}, AppState> {
           student.present = null;
         } else {
           student.present = new Date();
+          this.logEvent(studentId, 'present');
         }
       }
       return student;
