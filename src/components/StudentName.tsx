@@ -15,6 +15,7 @@ class StudentName extends React.Component<StudentNameProps, StudentNameState> {
     constructor(props: StudentNameProps) {
         super(props);
 
+        // TODO: remove state and have present variable driven by props passed by studentList
         this.state = {
             present: false
         }

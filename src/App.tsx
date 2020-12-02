@@ -41,6 +41,8 @@ class App extends React.Component<{}, AppState> {
     this.toggleStudentInput = this.toggleStudentInput.bind(this);
     this.updatePresentStatus = this.updatePresentStatus.bind(this);
     this.exportToCSV = this.exportToCSV.bind(this);
+    this.handleStudentRespond = this.handleStudentRespond.bind(this);
+    this.handleStudentNoRespond = this.handleStudentNoRespond.bind(this);
 
     this.setupLog();
   }
@@ -120,7 +122,6 @@ class App extends React.Component<{}, AppState> {
   }
 
   logEvent(studentId: number, action: string) {
-    // idbSet()
     if (this.db) {
       this.db.add('logs', {
         classroom: this.state.classPeriod,
@@ -129,6 +130,24 @@ class App extends React.Component<{}, AppState> {
         studentName: this.getStudentName(studentId)
       })
     }
+  }
+
+  handleStudentRespond(studentId: number) {
+    this.logEvent(studentId, 'responded');
+  }
+
+  handleStudentNoRespond(studentId: number) {
+    this.logEvent(studentId, 'noResponse')
+  }
+
+  getLogs() {
+    if (this.db) {
+      // TODO: Need to implement
+    }
+  }
+
+  generateReport() {
+    // TODO: Need to implement
   }
 
   getStudentName(studentId: number) {
@@ -140,10 +159,6 @@ class App extends React.Component<{}, AppState> {
     }
 
     return '';
-  }
-
-  generateReport() {
-
   }
 
   updatePresentStatus(studentId: number) {
@@ -219,8 +234,9 @@ class App extends React.Component<{}, AppState> {
 
         <section>
           <ClassList studentList={this.state.studentList} onStudentClick={this.updatePresentStatus} />
-          {/* <div>Pick Name</div> */}
-          <StudentSelector studentData={this.state.studentList} />
+          <StudentSelector studentData={this.state.studentList}
+            onMarkAsResponded={this.handleStudentRespond}
+            onMarkAsNotResponded={this.handleStudentNoRespond} />
         </section>
         
 

@@ -2,11 +2,15 @@ import React from 'react';
 
 interface StudentSelectorProps {
     studentData: any,
+    onMarkAsResponded?: any,
+    onMarkAsNotResponded?: any
 }
 
 interface StudentSelectorState {
     selectedName: string,
     selectedStudentId: number,
+    disableResponse: boolean,
+    responseText: string
 }
 
 class StudentSelector extends React.Component<StudentSelectorProps, StudentSelectorState> {
@@ -16,10 +20,14 @@ class StudentSelector extends React.Component<StudentSelectorProps, StudentSelec
 
         this.state = {
             selectedName: 'Choose a student...',
-            selectedStudentId: -1
+            selectedStudentId: -1,
+            disableResponse: false,
+            responseText: ''
         }
 
         this.pickName = this.pickName.bind(this);
+        this.markAsResponded = this.markAsResponded.bind(this);
+        this.markAsNotResponded = this.markAsNotResponded.bind(this);
     }
 
     pickName() {
@@ -43,28 +51,46 @@ class StudentSelector extends React.Component<StudentSelectorProps, StudentSelec
 
         this.setState({
             selectedName: `${chosen.firstName} ${chosen.lastName ? chosen.lastName : ''}`,
-            selectedStudentId: chosen.studentId
+            selectedStudentId: chosen.studentId,
+            disableResponse: false,
+            responseText: ''
         });
     }
 
     markAsResponded() {
+        if (this.state.selectedStudentId >= 0 && this.props.onMarkAsResponded) {
+            this.props.onMarkAsResponded(this.state.selectedStudentId);
 
+            this.setState({
+                disableResponse: true,
+                responseText: 'responded!'
+            });
+        }
     }
 
     markAsNotResponded() {
+        if (this.state.selectedStudentId >= 0 && this.props.onMarkAsNotResponded) {
+            this.props.onMarkAsNotResponded(this.state.selectedStudentId);
 
+            this.setState({
+                disableResponse: true,
+                responseText: 'did not respond...'
+            });
+        }
     }
 
     render() {
         return (
             <div style={{textAlign: 'center', flexGrow: 1}}>
-                {this.state.selectedName}
+                <h2>{this.state.selectedName}</h2>
+                <div>{this.state.responseText}</div>
+
                 <div>
                     <button onClick={this.pickName}>Pick Name</button>
                 </div>
                 <div>
-                    <button>Responded</button>
-                    <button>No Response</button>
+                    <button disabled={this.state.disableResponse} onClick={this.markAsResponded}>Responded</button>
+                    <button disabled={this.state.disableResponse} onClick={this.markAsNotResponded}>No Response</button>
                 </div>
             </div>
         );
