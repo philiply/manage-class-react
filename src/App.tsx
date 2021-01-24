@@ -229,29 +229,7 @@ class App extends React.Component<{}, AppState> {
           <div>
             <ClassSelector onSwitchClass={this.handleSwitchClass} />
             <button onClick={() => {this.toggleStudentInput()}}>{toggleStudentInputBtnLabel}</button>
-            {/* <Dialog open={this.state.showStudentInput} onClose={this.toggleStudentInput}>
-              <DialogTitle>Add Students</DialogTitle>
-              <DialogContent>
-                <DialogContentText>
-                  Add a student's first and last name per line, separated by a space.
-                </DialogContentText>
-                <TextField
-                  multiline
-                  rows={4}
-                  autoFocus
-                  id="name"
-                  label="Student Names"
-                  fullWidth
-                  variant="outlined"
-                />
-              </DialogContent>
-              
-              <DialogActions>
-                <Button onClick={this.toggleStudentInput}>
-                  Submit
-                </Button>
-              </DialogActions>
-            </Dialog> */}
+
             <StudentInput showStudentInput={this.state.showStudentInput}
               onClose={() => {this.toggleStudentInput(false)}}
               onSubmit={this.processStudents} />
@@ -259,8 +237,6 @@ class App extends React.Component<{}, AppState> {
           <ClassTime />
         </header>
         
-        {/* {studentInput} */}
-
         <section>
           <ClassList studentList={this.state.studentList} onStudentClick={this.updatePresentStatus} />
           <StudentSelector studentData={this.state.studentList}
