@@ -1,21 +1,11 @@
 import React from 'react';
 import './App.css';
-// import ClassSelector from './components/ClassSelector';
 import {ClassSelector, ClassList, StudentInput, StudentSelector, ClassTime} from './components';
-
-// import TextField from '@material-ui/core/TextField';
-// import Button from '@material-ui/core/Button';
-// import Dialog from '@material-ui/core/Dialog';
-// import DialogActions from '@material-ui/core/DialogActions';
-// import DialogContent from '@material-ui/core/DialogContent';
-// import DialogContentText from '@material-ui/core/DialogContentText';
-// import DialogTitle from '@material-ui/core/DialogTitle';
 
 // TODO: change types to interfaces
 // TODO: import StudentModel file
 // import {StudentModel} from './StudentModel';
 
-// import {set as idbSet, get as idbGet} from 'idb-keyval';
 import { openDB } from 'idb';
 
 type AppState = {
