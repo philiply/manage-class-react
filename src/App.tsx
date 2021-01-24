@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 // import ClassSelector from './components/ClassSelector';
-import {ClassSelector, ClassList, StudentInput, StudentSelector} from './components';
+import {ClassSelector, ClassList, StudentInput, StudentSelector, ClassTime} from './components';
 // TODO: change types to interfaces
 // TODO: import StudentModel file
 // import {StudentModel} from './StudentModel';
@@ -216,10 +216,6 @@ class App extends React.Component<{}, AppState> {
       toggleStudentInputBtnLabel = '-';
     }
 
-    const today = new Date();
-    const time = today.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-    const dayOfTheWeek = this.getWeekDay(today.getDay());
-
     return (
       <div className="App">
         <header>
@@ -227,7 +223,7 @@ class App extends React.Component<{}, AppState> {
             <ClassSelector onSwitchClass={this.handleSwitchClass} />
             <button onClick={this.toggleStudentInput}>{toggleStudentInputBtnLabel}</button>
           </div>
-          <h4>Time is {time} {dayOfTheWeek}</h4>
+          <ClassTime />
         </header>
         
         {studentInput}
