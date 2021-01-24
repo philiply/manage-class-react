@@ -6,37 +6,25 @@ interface StudentNameProps {
     onClick?: any
 }
 
-interface StudentNameState {
-    present: boolean
-}
-
-class StudentName extends React.Component<StudentNameProps, StudentNameState> {
+class StudentName extends React.Component<StudentNameProps> {
 
     constructor(props: StudentNameProps) {
         super(props);
-
-        // TODO: remove state and have present variable driven by props passed by studentList
-        this.state = {
-            present: false
-        }
 
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick(event: any) {
-        // TODO: update student data with current time stamp
         if (this.props.onClick) {
             this.props.onClick(this.props.studentData.studentId);
         }
-        this.setState({
-            present: !this.state.present
-        });
     }
 
     render() {
-        
+        const present = this.props.studentData.present;
+
         return (
-            <li className={this.state.present ? styles.present : ''} onClick={this.handleClick}
+            <li className={present ? styles.present : ''} onClick={this.handleClick}
                 title={this.props.studentData.present}>
                 {this.props.studentData.firstName} {this.props.studentData.lastName}
             </li>

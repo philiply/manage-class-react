@@ -2,6 +2,15 @@ import React from 'react';
 import './App.css';
 // import ClassSelector from './components/ClassSelector';
 import {ClassSelector, ClassList, StudentInput, StudentSelector, ClassTime} from './components';
+
+// import TextField from '@material-ui/core/TextField';
+// import Button from '@material-ui/core/Button';
+// import Dialog from '@material-ui/core/Dialog';
+// import DialogActions from '@material-ui/core/DialogActions';
+// import DialogContent from '@material-ui/core/DialogContent';
+// import DialogContentText from '@material-ui/core/DialogContentText';
+// import DialogTitle from '@material-ui/core/DialogTitle';
+
 // TODO: change types to interfaces
 // TODO: import StudentModel file
 // import {StudentModel} from './StudentModel';
@@ -115,9 +124,13 @@ class App extends React.Component<{}, AppState> {
     }
   }
 
-  toggleStudentInput(event: any): void {
+  toggleStudentInput(show?: any): void {
+    let newState = show;
+    if (show === undefined) {
+      newState = !this.state.showStudentInput
+    }
     this.setState({
-      showStudentInput: !this.state.showStudentInput
+      showStudentInput: newState
     });
   }
 
@@ -201,18 +214,12 @@ class App extends React.Component<{}, AppState> {
     link.click();
   }
 
-  getWeekDay(dayOfTheWeek: number) {
-    const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-    return weekdays[dayOfTheWeek];
-  }
-
   render() {
     const showStudentInput = this.state.showStudentInput;
-    let studentInput;
+    // let studentInput;
     let toggleStudentInputBtnLabel = '+';
     if (showStudentInput) {
-      studentInput = <StudentInput onSubmit={this.processStudents} />
+      // studentInput = <StudentInput onSubmit={this.processStudents} />
       toggleStudentInputBtnLabel = '-';
     }
 
@@ -221,12 +228,38 @@ class App extends React.Component<{}, AppState> {
         <header>
           <div>
             <ClassSelector onSwitchClass={this.handleSwitchClass} />
-            <button onClick={this.toggleStudentInput}>{toggleStudentInputBtnLabel}</button>
+            <button onClick={() => {this.toggleStudentInput()}}>{toggleStudentInputBtnLabel}</button>
+            {/* <Dialog open={this.state.showStudentInput} onClose={this.toggleStudentInput}>
+              <DialogTitle>Add Students</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Add a student's first and last name per line, separated by a space.
+                </DialogContentText>
+                <TextField
+                  multiline
+                  rows={4}
+                  autoFocus
+                  id="name"
+                  label="Student Names"
+                  fullWidth
+                  variant="outlined"
+                />
+              </DialogContent>
+              
+              <DialogActions>
+                <Button onClick={this.toggleStudentInput}>
+                  Submit
+                </Button>
+              </DialogActions>
+            </Dialog> */}
+            <StudentInput showStudentInput={this.state.showStudentInput}
+              onClose={() => {this.toggleStudentInput(false)}}
+              onSubmit={this.processStudents} />
           </div>
           <ClassTime />
         </header>
         
-        {studentInput}
+        {/* {studentInput} */}
 
         <section>
           <ClassList studentList={this.state.studentList} onStudentClick={this.updatePresentStatus} />
